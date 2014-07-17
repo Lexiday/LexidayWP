@@ -21,6 +21,7 @@ namespace LexidayWP8
         {
             InitializeComponent();
             BuildLocalizedApplicationBar();
+            LoadData();
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -35,21 +36,35 @@ namespace LexidayWP8
                 NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.RelativeOrAbsolute));
             }
 
-            RichTextBox myRTB = rtb;
-            Run myRun1 = new Run();
-            myRun1.Text = "the action or fact of persuading someone or of being persuaded to do or believe something.";
-
-            Paragraph myPara = new Paragraph();
-            myPara.Inlines.Add(myRun1);
-            myRTB.Blocks.Add(myPara);
+            
             
         }
 
         private async void LoadData()
         {
-            var query = ParseObject.GetQuery("Word").WhereLessThanOrEqualTo("createdAt", DateTime.Now.ToUniversalTime()).OrderBy("createdAt").OrderByDescending("createdAt");
-            query = query.Limit(5);
-            IEnumerable<ParseObject> results = await query.FindAsync();
+            var query = ParseObject.GetQuery("Words").WhereLessThanOrEqualTo("createdAt", DateTime.Now.ToUniversalTime()).OrderBy("createdAt").OrderByDescending("createdAt");
+            query = query.Limit(1);
+            IEnumerable<ParseObject> wordQ = await query.FindAsync();
+            ParseObject wordF = wordQ.ElementAt(0);
+
+            string word = wordF.Get<string>("word");
+            string pron = wordF.Get<string>("pron");
+            string typeOfWord = wordF.Get<string>("typeOfWord");
+            string definition = wordF.Get<string>("definition");
+
+            wordOfTheDay.Text = word;
+            lexidaySay.Text = pron;
+            lexidayPoS.Text = typeOfWord;
+
+
+
+            RichTextBox myRTB = rtb;
+            Run myRun1 = new Run();
+            myRun1.Text = definition;
+
+            Paragraph myPara = new Paragraph();
+            myPara.Inlines.Add(myRun1);
+            myRTB.Blocks.Add(myPara);
 
 
         }
@@ -58,15 +73,21 @@ namespace LexidayWP8
         {
             // Set the page's ApplicationBar to a new instance of ApplicationBar.
             ApplicationBar = new ApplicationBar();
+            ApplicationBar.ForegroundColor = Colors.White;
 
-            // Create a new button and set the text value to the localized string from AppResources.
-            ApplicationBarIconButton appBarButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.add.rest.png", UriKind.Relative));
-            appBarButton.Text = AppResources.AppBarButtonText;
-            ApplicationBar.Buttons.Add(appBarButton);
+            ApplicationBar.BackgroundColor = Color.FromArgb(255, 138, 3, 3);
 
             // Create a new menu item with the localized string from AppResources.
-            ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
-            ApplicationBar.MenuItems.Add(appBarMenuItem);
+            ApplicationBarMenuItem logout = new ApplicationBarMenuItem("log out");
+            logout.Click += logout_Click;
+            ApplicationBar.MenuItems.Add(logout);
+        }
+
+        void logout_Click(object sender, EventArgs e)
+        {
+            ParseUser.LogOut();
+            var currentUser = ParseUser.CurrentUser;
+            NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
         }
 
     }

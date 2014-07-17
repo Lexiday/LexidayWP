@@ -36,7 +36,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock x:Name="wordOfTheDay" Grid.Column="1" Text="persuasion" TextWrapping="Wrap"  FontFamily="Georgia" FontWeight="Bold" FontSize="30" Foreground="Black" HorizontalAlignment="Right"   />
+            <TextBlock x:Name="wordOfTheDay" Grid.Column="1" Text="" TextWrapping="Wrap"  FontFamily="Georgia" FontWeight="Bold" FontSize="30" Foreground="Black" HorizontalAlignment="Right"   />
         </Grid>
 
 
@@ -45,7 +45,7 @@
                 <ColumnDefinition Width="30"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <TextBlock x:Name="lexidaySay" Grid.Column="1" Text="[per-swey-zhuhn]" TextWrapping="Wrap"  FontFamily="Georgia" FontSize="26" Foreground="Black" HorizontalAlignment="Left"  />
+            <TextBlock x:Name="lexidaySay" Grid.Column="1" Text="" TextWrapping="Wrap"  FontFamily="Georgia" FontSize="26" Foreground="Black" HorizontalAlignment="Left"  />
         </Grid>
 
         <Grid Grid.Row="3">
@@ -53,7 +53,7 @@
                 <ColumnDefinition Width="30"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <TextBlock x:Name="lexidayPoS" Grid.Column="3" Text="noun" TextWrapping="Wrap" FontFamily="Georgia" FontSize="30" Foreground="Black" HorizontalAlignment="Left" FontStyle="Italic"  />
+            <TextBlock x:Name="lexidayPoS" Grid.Column="3" Text="" TextWrapping="Wrap" FontFamily="Georgia" FontSize="30" Foreground="Black" HorizontalAlignment="Left" FontStyle="Italic"  />
         </Grid>
         
         <Grid Grid.Row="4">

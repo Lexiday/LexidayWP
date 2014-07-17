@@ -38,6 +38,17 @@ namespace LexidayWP8
             InitializeLanguage();
 
             ParseClient.Initialize("EbTGZ0TfK4NhcGyX2X4nXS7rDbhPyZGGF4ZAha0M", "LSRoTZrHwCc89DYMaA4HRuMt5u7BiITROp506mMQ");
+
+            this.Startup += async (sender, args) =>
+            {
+                // This optional line tracks statistics around app opens, including push effectiveness:
+                ParseAnalytics.TrackAppOpens(RootFrame);
+
+                // By convention, the empty string is considered a "Broadcast" channel
+                // Note that we had to add "async" to the definition to use the await keyword
+                await ParsePush.SubscribeAsync("");
+            };
+
             // Show graphics profiling information while debugging.
             if (Debugger.IsAttached)
             {
